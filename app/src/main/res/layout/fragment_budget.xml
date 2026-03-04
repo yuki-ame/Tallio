@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F4F8">
+
+    <!-- White header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage Budget"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#0F1629" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Current Month Overview card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🗓  Current Month Overview"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F1629"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- Three stat boxes -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="14dp">
+
+                    <!-- Monthly Budget (blue) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="#DBEAFE"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="💲 Monthly Budget"
+                            android:textSize="10sp"
+                            android:textColor="#1D4ED8"
+                            android:layout_marginBottom="6dp" />
+
+                        <TextView
+                            android:id="@+id/tv_budget_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₹20,000"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#1D4ED8" />
+                    </LinearLayout>
+
+                    <!-- Spent (orange) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="#FEF3C7"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📈 Spent"
+                            android:textSize="10sp"
+                            android:textColor="#C2410C"
+                            android:layout_marginBottom="4dp" />
+
+                        <TextView
+                            android:id="@+id/tv_spent_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₹0"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#C2410C" />
+
+                        <TextView
+                            android:id="@+id/tv_spent_percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.0% of budget"
+                            android:textSize="9sp"
+                            android:textColor="#EA580C" />
+                    </LinearLayout>
+
+                    <!-- Remaining (green) -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:background="#DCFCE7"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📉 Remaining"
+                            android:textSize="10sp"
+                            android:textColor="#15803D"
+                            android:layout_marginBottom="6dp" />
+
+                        <TextView
+                            android:id="@+id/tv_remaining_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₹20,000"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#15803D" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Progress bar -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Budget Progress"
+                    android:textSize="12sp"
+                    android:textColor="#6B7280"
+                    android:layout_marginBottom="6dp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_budget"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="#3B82F6"
+                    android:progressBackgroundTint="#E5E7EB" />
+
+                <TextView
+                    android:id="@+id/tv_progress_percent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0.0%"
+                    android:textSize="11sp"
+                    android:textColor="#6B7280"
+                    android:gravity="end"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Set New Budget card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set New Monthly Budget"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F1629"
+                    android:layout_marginBottom="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Budget Amount (₹)"
+                    android:textSize="13sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp" />
+
+                <EditText
+                    android:id="@+id/et_monthly_budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:hint="e.g. 20000"
+                    android:background="#F9FAFB"
+                    android:paddingHorizontal="14dp"
+                    android:inputType="numberDecimal"
+                    android:textSize="15sp"
+                    android:textColor="#0F1629"
+                    android:textColorHint="#9CA3AF"
+                    android:layout_marginBottom="14dp" />
+
+                <Button
+                    android:id="@+id/btn_save_budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Save Budget"
+                    android:backgroundTint="#0F1629"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
