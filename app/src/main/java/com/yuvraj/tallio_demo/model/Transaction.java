@@ -1,23 +1,16 @@
 package com.yuvraj.tallio_demo.model;
 
-/**
- * Transaction.java - THE DATA MODEL
- *
- * A plain Java class (POJO) that represents one expense entry.
- * No Room annotations needed - we use DBHelper instead.
- * Each field maps to a column in our SQLite database table.
- */
 public class Transaction {
 
     private int id;
-    private String merchantName;  // e.g., "Zomato Order"
-    private double amount;         // e.g., 350.0
-    private String category;       // e.g., "Food"
-    private long timestamp;        // When the transaction happened
-    private String note;           // Optional note from user
-    private String source;         // "SMS" or "Manual"
+    private String merchantName;
+    private double amount;
+    private String category;
+    private long timestamp;
+    private String note;
+    private String source;
 
-    // Constructor for new transactions (no ID yet - DB assigns it)
+    // Constructor for new transactions (no ID yet)
     public Transaction(String merchantName, double amount, String category, long timestamp, String note, String source) {
         this.merchantName = merchantName;
         this.amount = amount;
@@ -38,7 +31,7 @@ public class Transaction {
         this.source = source;
     }
 
-    // --- Getters and Setters ---
+    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

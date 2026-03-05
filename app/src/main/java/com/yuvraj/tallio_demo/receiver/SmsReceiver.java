@@ -13,13 +13,6 @@ import androidx.core.app.NotificationCompat;
 import com.yuvraj.tallio_demo.database.DBHelper;
 import com.yuvraj.tallio_demo.model.Transaction;
 
-/**
- * SmsReceiver.java - BROADCAST RECEIVER
- *
- * Automatically wakes up when an SMS arrives.
- * Checks if it's a bank SMS, extracts the transaction details,
- * and saves it to our SQLite database via DBHelper.
- */
 public class SmsReceiver extends BroadcastReceiver {
 
     private static final String CHANNEL_ID = "tallio_channel";
@@ -32,9 +25,23 @@ public class SmsReceiver extends BroadcastReceiver {
         Object[] pdus = (Object[]) bundle.get("pdus");
         if (pdus == null) return;
 
+        // Get the SMS format (needed for Android 6+)
+        String format = bundle.getString("format");
+
         for (Object pdu : pdus) {
-            SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
+            SmsMessage smsMessage;
+
+            // Use the format-aware method on Android 6+, fallback on older
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                smsMessage = SmsMessage.createFromPdu((byte[]) pdu, format);
+            } else {
+                smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
+            }
+
+            if (smsMessage == null) continue;
+
             String smsBody = smsMessage.getMessageBody();
+            if (smsBody == null || smsBody.isEmpty()) continue;
 
             if (SmsParser.isBankSms(smsBody)) {
                 double amount = SmsParser.extractAmount(smsBody);
@@ -47,7 +54,6 @@ public class SmsReceiver extends BroadcastReceiver {
                             System.currentTimeMillis(), smsBody, "SMS"
                     );
 
-                    // Save using DBHelper instead of Room
                     DBHelper dbHelper = new DBHelper(context);
                     dbHelper.insertTransaction(transaction);
 

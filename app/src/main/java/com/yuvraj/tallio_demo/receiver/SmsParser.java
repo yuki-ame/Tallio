@@ -55,7 +55,7 @@ public class SmsParser {
         if (combined.contains("metro") || combined.contains("uber") ||
                 combined.contains("ola") || combined.contains("rapido") ||
                 combined.contains("bus") || combined.contains("irctc")) return "Travel";
-        if (combined.contains("amazon") || combined.contains("book") ||
+        if (combined.contains("amazon") || combined.contains("books") ||
                 combined.contains("course") || combined.contains("fee") ||
                 combined.contains("stationery") || combined.contains("flipkart")) return "Academic";
         if (combined.contains("netflix") || combined.contains("spotify") ||
