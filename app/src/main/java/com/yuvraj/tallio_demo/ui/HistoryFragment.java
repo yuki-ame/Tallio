@@ -1,6 +1,9 @@
 package com.yuvraj.tallio_demo.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -8,7 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,14 +25,14 @@ import com.yuvraj.tallio_demo.R;
 import com.yuvraj.tallio_demo.database.DBHelper;
 import com.yuvraj.tallio_demo.model.Transaction;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * HistoryFragment.java - TRANSACTION HISTORY TAB
  *
- * Shows all transactions in a RecyclerView.
- * Supports: search by name/category, delete individual, clear all.
+ * Full implementation with CSV Export capability.
  */
 public class HistoryFragment extends Fragment {
 
@@ -33,20 +40,24 @@ public class HistoryFragment extends Fragment {
     private TransactionAdapter adapter;
     private List<Transaction> allTransactions;
     private DBHelper dbHelper;
+    private static final int CREATE_FILE_REQUEST_CODE = 101;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        recyclerView      = view.findViewById(R.id.recycler_transactions);
+        recyclerView = view.findViewById(R.id.recycler_transactions);
         EditText searchBox = view.findViewById(R.id.et_search);
         Button btnClearAll = view.findViewById(R.id.btn_clear_all);
+
+        // ✅ Initialize the Export Button
+        ImageButton btnExportCsv = view.findViewById(R.id.btn_export_csv);
 
         dbHelper = new DBHelper(getContext());
 
         loadTransactions();
 
-        // Live search
+        // Live search logic
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
             @Override public void afterTextChanged(Editable s) {}
@@ -54,6 +65,9 @@ public class HistoryFragment extends Fragment {
                 filterTransactions(s.toString());
             }
         });
+
+        // ✅ Export CSV Logic
+        btnExportCsv.setOnClickListener(v -> openFilePicker());
 
         // Clear all with confirmation dialog
         btnClearAll.setOnClickListener(v ->
@@ -71,22 +85,75 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
+    private void openFilePicker() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/csv");
+        intent.putExtra(Intent.EXTRA_TITLE, "Tallio_Transactions.csv");
+        startActivityForResult(intent, CREATE_FILE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CREATE_FILE_REQUEST_CODE && resultCode == android.app.Activity.RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                writeCsvToFile(uri);
+            }
+        }
+    }
+
+    private void writeCsvToFile(Uri uri) {
+        try {
+            ParcelFileDescriptor pfd = requireActivity().getContentResolver().openFileDescriptor(uri, "w");
+            if (pfd != null) {
+                FileOutputStream fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
+
+                // Header row
+                StringBuilder csvContent = new StringBuilder("Date,Merchant,Category,Amount\n");
+
+                // Data rows
+                // Inside writeCsvToFile loop
+                for (Transaction t : allTransactions) {
+                    String merchant = t.getMerchantName().replace(",", " ");
+                    String category = t.getCategory().replace(",", " ");
+                    String note = (t.getNote() != null) ? t.getNote().replace(",", " ") : "";
+
+                    csvContent.append(t.getDate()).append(",")  // Now this will work!
+                            .append(merchant).append(",")
+                            .append(category).append(",")
+                            .append(t.getAmount()).append(",")
+                            .append(note).append("\n");
+                }
+
+                fileOutputStream.write(csvContent.toString().getBytes());
+                fileOutputStream.close();
+                pfd.close();
+
+                Toast.makeText(getContext(), "Transactions Exported Successfully!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Export Failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        loadTransactions(); // Refresh when coming back from Add tab
+        loadTransactions();
     }
 
     public void loadTransactions() {
         allTransactions = dbHelper.getAllTransactions();
 
         if (adapter == null) {
-            // First time: create adapter and set it
             adapter = new TransactionAdapter(allTransactions, this);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(adapter);
         } else {
-            // Already exists: just update the list
             adapter.updateList(allTransactions);
         }
     }
@@ -102,7 +169,6 @@ public class HistoryFragment extends Fragment {
         adapter.updateList(filtered);
     }
 
-    // Called by adapter when user taps Delete on a row
     public void deleteTransaction(int transactionId) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Delete Transaction")

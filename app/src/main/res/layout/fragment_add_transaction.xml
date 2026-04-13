@@ -3,13 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F0F4F8">
+    android:background="@color/appBackground">
 
-    <!-- White header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/surfaceCard"
         android:paddingHorizontal="20dp"
         android:paddingTop="24dp"
         android:paddingBottom="16dp">
@@ -21,7 +20,7 @@
             android:text="Add Manual Transaction"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#0F1629" />
+            android:textColor="@color/textPrimary" />
     </LinearLayout>
 
     <ScrollView
@@ -33,17 +32,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#FFFFFF"
+            android:background="@color/surfaceCard"
             android:layout_margin="16dp"
             android:padding="20dp">
 
-            <!-- What was it for -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="What was it for? *"
                 android:textSize="13sp"
-                android:textColor="#374151"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp" />
 
@@ -52,21 +50,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:hint="e.g. Auto Rickshaw, Samosa, Notebook"
-                android:background="#F9FAFB"
+                android:background="@color/appBackground"
                 android:paddingHorizontal="14dp"
                 android:inputType="text"
                 android:textSize="15sp"
-                android:textColor="#0F1629"
-                android:textColorHint="#9CA3AF"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
                 android:layout_marginBottom="18dp" />
 
-            <!-- Amount -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amount (₹) *"
                 android:textSize="13sp"
-                android:textColor="#374151"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp" />
 
@@ -75,21 +72,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:hint="e.g. 150"
-                android:background="#F9FAFB"
+                android:background="@color/appBackground"
                 android:paddingHorizontal="14dp"
                 android:inputType="numberDecimal"
                 android:textSize="15sp"
-                android:textColor="#0F1629"
-                android:textColorHint="#9CA3AF"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
                 android:layout_marginBottom="18dp" />
 
-            <!-- Category -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Category *"
                 android:textSize="13sp"
-                android:textColor="#374151"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp" />
 
@@ -97,17 +93,16 @@
                 android:id="@+id/spinner_category"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:background="#F9FAFB"
+                android:background="@color/appBackground"
                 android:paddingHorizontal="8dp"
                 android:layout_marginBottom="18dp" />
 
-            <!-- Note -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Note (optional)"
                 android:textSize="13sp"
-                android:textColor="#374151"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp" />
 
@@ -116,36 +111,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:hint="e.g. Paid cash at college gate"
-                android:background="#F9FAFB"
+                android:background="@color/appBackground"
                 android:paddingHorizontal="14dp"
                 android:paddingTop="12dp"
                 android:inputType="textMultiLine"
                 android:gravity="top"
                 android:textSize="14sp"
-                android:textColor="#0F1629"
-                android:textColorHint="#9CA3AF"
+                android:textColor="@color/textPrimary"
+                android:textColorHint="@color/textSecondary"
                 android:layout_marginBottom="24dp" />
 
-            <!-- Save button -->
             <Button
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="Save Transaction"
-                android:backgroundTint="#0F1629"
-                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/red_expense"
+                android:textColor="@color/textOnBrand"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />
 
-            <!-- Delete button (edit mode only) -->
             <Button
                 android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:text="Delete Transaction"
-                android:backgroundTint="#EF4444"
-                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/red_expense"
+                android:textColor="@color/textOnBrand"
                 android:textSize="15sp"
                 android:visibility="gone" />
 

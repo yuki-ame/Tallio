@@ -1,4 +1,7 @@
 package com.yuvraj.tallio_demo.model;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Transaction {
 
@@ -18,6 +21,16 @@ public class Transaction {
         this.timestamp = timestamp;
         this.note = note;
         this.source = source;
+    }
+
+    public String getDate() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date date = new Date(this.timestamp);
+            return sdf.format(date);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     // Constructor with ID (used when reading from database)

@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F0F4F8">
+    android:background="@color/appBackground"> <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/navy_dark"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="28dp"
+    android:paddingBottom="18dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
 
-    <!-- Dark header -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#0F1629"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="28dp"
-        android:paddingBottom="18dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="History"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All transactions"
-                android:textSize="12sp"
-                android:textColor="#8892B0" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_clear_all"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Clear All"
-            android:backgroundTint="#EF4444"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="History"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/textOnBrand" />
 
-    <!-- Search bar -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All transactions"
+            android:textSize="12sp"
+            android:textColor="#8892B0" /> </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_export_csv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/stat_sys_download"
+        android:contentDescription="Export CSV"
+        app:tint="@color/textOnBrand" />
+
+    <Button
+        android:id="@+id/btn_clear_all"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:text="Clear All"
+        android:backgroundTint="@color/red_expense"
+        android:textColor="@color/textOnBrand"
+        android:textSize="12sp" />
+</LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/surfaceCard"
         android:paddingHorizontal="16dp"
         android:paddingVertical="12dp">
 
@@ -61,15 +67,14 @@
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:hint="🔍  Search by name or category..."
-            android:background="#F3F4F6"
+            android:background="@color/appBackground"
             android:paddingHorizontal="14dp"
             android:textSize="14sp"
-            android:textColor="#0F1629"
-            android:textColorHint="#9CA3AF"
+            android:textColor="@color/textPrimary"
+            android:textColorHint="@color/textSecondary"
             android:singleLine="true" />
     </LinearLayout>
 
-    <!-- Transaction list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_transactions"
         android:layout_width="match_parent"

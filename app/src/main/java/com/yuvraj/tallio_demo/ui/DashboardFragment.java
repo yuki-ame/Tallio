@@ -1,6 +1,8 @@
 package com.yuvraj.tallio_demo.ui;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -27,9 +30,7 @@ import java.util.Locale;
 
 /**
  * DashboardFragment.java - HOME SCREEN
- *
- * Shows total spent, money left, and a pie chart of spending by category.
- * Uses DBHelper to query the SQLite database.
+ * Updated with dynamic theme colors for PieChart.
  */
 public class DashboardFragment extends Fragment {
 
@@ -49,7 +50,6 @@ public class DashboardFragment extends Fragment {
 
         dbHelper = new DBHelper(getContext());
 
-        // Add sample data button (for demo)
         Button btnSample = view.findViewById(R.id.btn_add_sample);
         btnSample.setOnClickListener(v -> addSampleData());
 
@@ -60,7 +60,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadDashboard(); // Refresh data every time we come back to this tab
+        loadDashboard();
     }
 
     private void loadDashboard() {
@@ -96,28 +96,50 @@ public class DashboardFragment extends Fragment {
             }
         }
 
+        // 🌓 Detect Theme for dynamic text coloring
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        int dynamicTextColor = (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) ? Color.WHITE : Color.BLACK;
+
         if (entries.isEmpty()) {
             pieChart.setNoDataText("No transactions yet this month");
+            pieChart.setNoDataTextColor(dynamicTextColor);
             pieChart.invalidate();
             return;
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        dataSet.setValueTextSize(11f);
+        dataSet.setValueTextSize(12f);
+        dataSet.setValueTextColor(Color.WHITE); // White text inside colored slices looks best
 
         PieData pieData = new PieData(dataSet);
         pieChart.setData(pieData);
+
+        // ✨ Styling & Theme Integration
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleRadius(45f);
+        pieChart.setHoleColor(Color.TRANSPARENT); // Blends with card background
+        pieChart.setTransparentCircleRadius(50f);
         pieChart.getDescription().setEnabled(false);
+
+        // 🏷️ Labels & Legend Text Colors
+        pieChart.setEntryLabelColor(dynamicTextColor);
         pieChart.setEntryLabelTextSize(11f);
+
+        Legend legend = pieChart.getLegend();
+        legend.setTextColor(dynamicTextColor);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setDrawInside(false);
+        legend.setWordWrapEnabled(true);
+        legend.setTextSize(12f);
+
         pieChart.animateY(800);
         pieChart.invalidate();
     }
 
     private void addSampleData() {
-        // Clear old sample data first to avoid duplicates
         dbHelper.deleteAllTransactions();
         long now = System.currentTimeMillis();
         long hour = 3600 * 1000L;

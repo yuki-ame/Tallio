@@ -2,130 +2,123 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F4F8">
+    android:background="@color/appBackground"> <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:paddingTop="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tallio"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/textPrimary"
+        android:layout_marginBottom="2dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dashboard"
+        android:textSize="13sp"
+        android:textColor="@color/textSecondary"
+        android:layout_marginBottom="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:paddingTop="24dp">
-
-        <!-- Header -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tallio"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            android:textColor="#0F1629"
-            android:layout_marginBottom="2dp" />
+        android:background="@color/navy_dark"
+        android:padding="20dp"
+        android:layout_marginBottom="14dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dashboard"
+            android:text="Total Spent This Month"
+            android:textColor="#8892B0"
             android:textSize="13sp"
-            android:textColor="#6B7280"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="6dp" />
 
-        <!-- Total Spent Card (dark navy) -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_total_spent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#0F1629"
-            android:padding="20dp"
-            android:layout_marginBottom="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Spent This Month"
-                android:textColor="#8892B0"
-                android:textSize="13sp"
-                android:layout_marginBottom="6dp" />
-
-            <TextView
-                android:id="@+id/tv_total_spent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₹0"
-                android:textColor="#FFFFFF"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:id="@+id/tv_budget_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0.0% of budget used"
-                android:textColor="#64FFDA"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <!-- Money Left Card (white) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:padding="20dp"
-            android:layout_marginBottom="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Money Left This Month"
-                android:textColor="#6B7280"
-                android:textSize="13sp"
-                android:layout_marginBottom="6dp" />
-
-            <TextView
-                android:id="@+id/tv_money_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₹0"
-                android:textColor="#0F1629"
-                android:textSize="34sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Spending Chart Card (white) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:padding="16dp"
-            android:layout_marginBottom="14dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Spending by Category"
-                android:textColor="#374151"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pie_chart"
-                android:layout_width="match_parent"
-                android:layout_height="220dp" />
-        </LinearLayout>
-
-        <!-- Demo button -->
-        <Button
-            android:id="@+id/btn_add_sample"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Add Sample Data (Demo)"
-            android:backgroundTint="#3B82F6"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:text="₹0"
+            android:textColor="@color/textOnBrand"
+            android:textSize="40sp"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp" />
 
+        <TextView
+            android:id="@+id/tv_budget_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0% of budget used"
+            android:textColor="@color/teal"
+            android:textSize="13sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/surfaceCard"
+        android:padding="20dp"
+        android:layout_marginBottom="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Money Left This Month"
+            android:textColor="@color/textSecondary"
+            android:textSize="13sp"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:id="@+id/tv_money_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹0"
+            android:textColor="@color/textPrimary"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/surfaceCard"
+        android:padding="16dp"
+        android:layout_marginBottom="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spending by Category"
+            android:textColor="@color/textPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="220dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add_sample"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Add Sample Data (Demo)"
+        android:backgroundTint="@color/blue_accent"
+        android:textColor="@color/textOnBrand"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+</LinearLayout>
 </ScrollView>

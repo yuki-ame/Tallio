@@ -17,18 +17,6 @@ import com.yuvraj.tallio_demo.R;
 import com.yuvraj.tallio_demo.database.DBHelper;
 import com.yuvraj.tallio_demo.model.Transaction;
 
-/**
- * AddTransactionFragment.java - MANUAL TRANSACTION ENTRY (CRUD)
- *
- * Allows users to manually add cash transactions.
- * Also handles EDIT mode when called with an existing transaction ID.
- *
- * This fragment demonstrates:
- * C - Save button calls dbHelper.insertTransaction()
- * R - If editId > 0, load existing data with dbHelper.getTransactionById()
- * U - If editId > 0, Save button calls dbHelper.updateTransaction()
- * D - Delete button calls dbHelper.deleteTransaction()
- */
 public class AddTransactionFragment extends Fragment {
 
     private EditText etMerchant, etAmount, etNote;
@@ -145,9 +133,6 @@ public class AddTransactionFragment extends Fragment {
         }
     }
 
-    /**
-     * DELETE the transaction being edited.
-     */
     private void deleteTransaction() {
         dbHelper.deleteTransaction(editId);
         Toast.makeText(getContext(), "Transaction deleted!", Toast.LENGTH_SHORT).show();

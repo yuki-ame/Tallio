@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,6 +55,9 @@ dependencies {
 
     dependencies {
         // ... other dependencies (AppCompat, Material, etc.)
+        implementation ("com.google.android.material:material:1.9.0")
+
+        implementation ("com.squareup.okhttp3:okhttp:4.12.0")
 
         // Standard Unit Test dependency
         testImplementation ("junit:junit:4.13.2")
@@ -61,5 +65,11 @@ dependencies {
         // Android Instrumentation Test dependencies (for UI tests)
         androidTestImplementation ("androidx.test.ext:junit:1.1.5")
         androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+
+        // Import the Firebase BoM (Bill of Materials)
+        implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+
+        // Add the dependency for the Firebase Authentication library
+        implementation("com.google.firebase:firebase-auth")
     }
 }

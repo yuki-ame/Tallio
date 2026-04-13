@@ -3,12 +3,6 @@ package com.yuvraj.tallio_demo.receiver;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * SmsParser.java - REGEX UTILITY
- *
- * Uses Regular Expressions to extract data from bank SMS messages.
- * A Regex is a pattern used to find text that matches a specific format.
- */
 public class SmsParser {
 
     public static boolean isBankSms(String smsBody) {
